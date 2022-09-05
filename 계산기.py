@@ -1,8 +1,9 @@
 from contextlib import redirect_stderr
 import tkinter as tk
+import math
 
 disValue = 0
-operator = {'+':1, '-':2, '÷':3, 'x':4, 'C':5, '=':6, 'Back':7}
+operator = {'+':1, '-':2, '÷':3, 'x':4, 'C':5, '=':6, 'x²':7, '²√x':8, '1/x':9}
 stoValue = 0
 opPre = 0
 
@@ -19,8 +20,10 @@ def clear():
     stoValue = 0
     opPre = 0
     str_value.set(disValue)                     # 화면을 지운다
+
+
  
-### +-= 연산자 클릭할 때 정의
+### 연산자 클릭할 때 정의
 def oprator_Click(value):                          
     global disValue, operator, stoValue, opPre
 
@@ -32,7 +35,7 @@ def oprator_Click(value):
     
     elif disValue == 0:                         # 현재 화면에 출력된 값이 0일 때
         opPre = 0
-    
+                  
     elif opPre == 0:                            # 연산자가 한번도 클릭되지 않았을 때
         opPre = op                              # 현재 눌린 연산자가 있으면 저장
         stoValue = disValue                     # 현재까지의 숫자를 저장
@@ -40,21 +43,37 @@ def oprator_Click(value):
         str_value.set(str(stoValue))            # 0으로 다음 숫자를 받을 준비
    
     elif op == 6:        # = (결과를 계산하고 출력)
-       if opPre == 1:      # +
-           disValue = stoValue + disValue
-       if opPre == 2:      # -
-           disValue = stoValue - disValue
-       if opPre == 3:      # /
-           disValue = stoValue / disValue
-       if opPre == 4:      # x
-           disValue = stoValue * disValue
+        if opPre == 1:      # +
+            disValue = stoValue + disValue
+        if opPre == 2:      # -
+            disValue = stoValue - disValue
+        if opPre == 3:      # /
+            disValue = stoValue / disValue
+        if opPre == 4:      # x
+            disValue = stoValue * disValue
 
-       str_value.set(str(disValue))             # 최종 결과 값을 출력
-       stoValue = 0
-       opPre = 0
+        str_value.set(str(disValue))             # 최종 결과 값을 출력
+        stoValue = 0
+        opPre = 0
+        disValue = 0
+            
+
+    elif opPre == 7 or opPre == 8:
+        if opPre == 7:      # x²
+            disValue = stoValue ** 2
+        if opPre == 8:      # ²√x
+            disValue = stoValue ** 0.5
+
+        str_value.set(disValue)
+        stoValue = 0
+        disValue = 0
+        opPre = 0
+
+
 
     else:
         clear()
+
 
 ### 버튼 클릭 정의
 def Button_Click(value):                              
