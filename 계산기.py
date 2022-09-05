@@ -3,7 +3,7 @@ import tkinter as tk
 import math
 
 disValue = 0
-operator = {'+':1, '-':2, '÷':3, 'x':4, 'C':5, '=':6, 'x²':7, '²√x':8, '1/x':9}
+operator = {'+':1, '-':2, '÷':3, 'x':4, 'C':5, '=':6, '%':7, 'x²':8, '²√x':9, '1/x':10}
 stoValue = 0
 opPre = 0
 
@@ -51,6 +51,8 @@ def oprator_Click(value):
             disValue = stoValue / disValue
         if opPre == 4:      # x
             disValue = stoValue * disValue
+        if opPre == 7:      # % (원래는 퍼센트인데 여기선 나머지로 함)
+            disValue = stoValue % disValue
 
         str_value.set(str(disValue))             # 최종 결과 값을 출력
         stoValue = 0
@@ -58,17 +60,18 @@ def oprator_Click(value):
         disValue = 0
             
 
-    elif opPre == 7 or opPre == 8:
-        if opPre == 7:      # x²
+    elif opPre == 8 or opPre == 9 or opPre == 10:
+        if opPre == 8:      # x²
             disValue = stoValue ** 2
-        if opPre == 8:      # ²√x
+        if opPre == 9:      # ²√x
             disValue = stoValue ** 0.5
+        if opPre == 10:     # 1/x
+            disValue = 1 / stoValue
 
         str_value.set(disValue)
         stoValue = 0
         disValue = 0
         opPre = 0
-
 
 
     else:
